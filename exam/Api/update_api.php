@@ -1,22 +1,24 @@
 <?php
 
 include("../config/config.php");
-header("Access-Control-Allow-Methods: DELETE");
+header("Access-Control-Allow-Methods: PUT");
 
 $config = new Config();
 
-if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+if($_SERVER['REQUEST_METHOD'] == 'PUT'){
     $input = file_get_contents("php://input");
-    parse_str($input,$_DELETE);
+    parse_str($input,$_UPDATE);
 
-    $id = $_DELETE['id'];
+    $name = $_UPDATE['name'];
+    $pincod = $_UPDATE['pincod'];
+    $id = $_UPDATE['id'];
 
-    $res = $config->delete($id);
+    $res = $config->update($name,$pincod,$id);
 
     if($res){
-        $arr['data'] = "Record delete successfully....";
+        $arr['data'] = "Record update successfully....";
     }else{
-        $arr['data'] = "Record deletetion Failed.....";
+        $arr['data'] = "Record updation Failed.....";
     }
 
 }else{
